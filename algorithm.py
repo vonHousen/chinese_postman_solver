@@ -103,6 +103,7 @@ class G1:
         # count correction values because undirected edges are causing miscalculations of vertices' degrees
         correction_for_vs = defaultdict(int)    # default value is zero
         for edge in g.es:
+            edge["transformed"] = False
             if edge["directed"] is False:
                 correction_for_vs[edge.source] -= 1
                 correction_for_vs[edge.target] += 1
@@ -118,24 +119,26 @@ class G1:
                                        + correction_for_vs[source_vertex_id]
                 if source_vertex_degree > 0:
                     # transform edge into outgoing
-                    # in fact - reverse existing edge
-                    g.add_edge(target_vertex_id, source_vertex_id)["directed"] = True
+                    # in fact - reverse existing edge: delete current edge and add reversed one
                     g.delete_edges([(source_vertex_id, target_vertex_id)])
+                    edge = g.add_edge(target_vertex_id, source_vertex_id)
                 else:
                     # transform edge into incoming
-                    # in fact - leave as it is
-                    edge["directed"] = True
+                    # in fact - leave as it is, just flag it differently
+                    pass
+                edge["directed"] = True
+                edge["transformed"] = True
                 correction_for_vs[source_vertex_id] += 1
                 correction_for_vs[target_vertex_id] -= 1
 
         self.graph = g
 
-    def plot(self, margin=100, bbox=(500, 500)):
+    def plot(self, edge_label="directed", margin=100, bbox=(500, 500)):
         visual_style = {}
         visual_style["layout"] = self.graph.layout("kk")
         visual_style["bbox"] = bbox
         visual_style["margin"] = margin
         visual_style["vertex_label"] = self.graph.vs["label"]
-        visual_style["edge_label"] = ["directed" if is_directed is True else "undirected"
-                                      for is_directed in self.graph.es["directed"]]
+        visual_style["edge_label"] = [edge_label if flag is True else ""
+                                      for flag in self.graph.es[edge_label]]
         plot(self.graph, **visual_style)
