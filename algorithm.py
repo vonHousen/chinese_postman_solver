@@ -3,9 +3,9 @@ from igraph import *
 
 class PartiallyDirectedGraph:
     """
-    Adapter for graph object from igraph library. Represents partially directed graph.
+    Adapter for graph object from igraph library.
+    Represents partially directed graph. Marked as graph of type G in the documentation.
     """
-
     def __init__(self, full_adjacency_matrix: list, labels: list, weights: list):
         self.graph = self.get_graph_from_full_adj_mat(full_adjacency_matrix)
         self.graph.vs["label"] = labels
@@ -81,10 +81,21 @@ class PartiallyDirectedGraph:
                                       for is_directed in self.graph.es["directed"]]
         plot(self.graph, **visual_style)
 
+    def is_connected(self):
+        return self.graph.is_connected()
 
-def is_connected(adjacency_matrix: list):
-    return Graph.Adjacency(adjacency_matrix).is_connected()
 
+class G1:
+    """
+    Adapter for graph object from igraph library.
+    Represents fully directed graph. Marked as graph of type G1 in the documentation.
+    """
+    def __init__(self):
+        self.graph = None
 
-def transform_g_to_g1(adjacency_matrix: list):
-    return Graph.Adjacency(adjacency_matrix)
+    def transform_from_partially_directed(self, graph_G: PartiallyDirectedGraph):
+        """
+        Transformation from graph G to G1 as in documentation.
+        :return: graph G1 based on G.
+        """
+        self.graph = graph_G.graph      # TODO
