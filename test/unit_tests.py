@@ -31,8 +31,12 @@ class MyTestCase(unittest.TestCase):
         weights = [1, 1, 1]
         g = PartiallyDirectedGraph(full_adjacency_matrix_sample, labels, weights)
         # g.plot()
-        g1 = G1().transform_from_partially_directed(g)
-        # TODO
+        g1 = G1()
+        g1.transform_from_partially_directed(g)
+        g1_valid = Graph([(0,1), (1,2), (2,0)], directed=True)
+        g1_valid.vs["label"] = labels
+        g1_valid.es["weight"] = weights
+        self.assertEqual(g1.graph.get_adjacency(), g1_valid.get_adjacency())
 
 
 if __name__ == '__main__':
