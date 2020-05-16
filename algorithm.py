@@ -1,13 +1,34 @@
 from igraph import *
 
 
-class PartiallyDirectedGraph:
+class GenericGraph:
+    """
+    Generic class for graphs.
+    """
+    def __init__(self, graph: Graph):
+        self.graph = graph
+
+    def is_connected(self):
+        return self.graph.is_connected()
+
+    def plot(self, edge_label="directed", margin=100, bbox=(500, 500)):
+        visual_style = {}
+        visual_style["layout"] = self.graph.layout("kk")
+        visual_style["bbox"] = bbox
+        visual_style["margin"] = margin
+        visual_style["vertex_label"] = self.graph.vs["label"]
+        visual_style["edge_label"] = [edge_label if flag is True else ""
+                                      for flag in self.graph.es[edge_label]]
+        plot(self.graph, **visual_style)
+
+
+class PartiallyDirectedGraph(GenericGraph):
     """
     Adapter for graph object from igraph library.
     Represents partially directed graph. Marked as graph of type G in the documentation.
     """
     def __init__(self, full_adjacency_matrix: list, labels: list, weights: list):   # TODO use numpy
-        self.graph = self.get_graph_from_full_adj_mat(full_adjacency_matrix)
+        super(PartiallyDirectedGraph, self).__init__(self.get_graph_from_full_adj_mat(full_adjacency_matrix))
         self.graph.vs["label"] = labels
         self.graph.es["weight"] = weights
 
@@ -71,29 +92,17 @@ class PartiallyDirectedGraph:
         g.es['directed'] = directed_flags
         return g
 
-    def plot(self, margin=100, bbox=(500, 500)):
-        visual_style = {}
-        visual_style["layout"] = self.graph.layout("kk")
-        visual_style["bbox"] = bbox
-        visual_style["margin"] = margin
-        visual_style["vertex_label"] = self.graph.vs["label"]
-        visual_style["edge_label"] = ["directed" if is_directed is True else "undirected"
-                                      for is_directed in self.graph.es["directed"]]
-        plot(self.graph, **visual_style)
 
-    def is_connected(self):
-        return self.graph.is_connected()
-
-
-class G1:
+class G1(GenericGraph):
     """
     Adapter for graph object from igraph library.
     Represents fully directed graph. Marked as graph of type G1 in the documentation.
     """
-    def __init__(self):
-        self.graph = None
+    def __init__(self, graph_G: PartiallyDirectedGraph):
+        super(G1, self).__init__(self.transform_from_partially_directed(graph_G))
 
-    def transform_from_partially_directed(self, graph_G: PartiallyDirectedGraph):
+    @staticmethod
+    def transform_from_partially_directed(graph_G: PartiallyDirectedGraph):
         """
         Transformation from graph G to G1 as in step 2 of the documentation.
         :return: graph G1 based on G.
@@ -131,14 +140,4 @@ class G1:
                 correction_for_vs[source_vertex_id] += 1
                 correction_for_vs[target_vertex_id] -= 1
 
-        self.graph = g
-
-    def plot(self, edge_label="directed", margin=100, bbox=(500, 500)):
-        visual_style = {}
-        visual_style["layout"] = self.graph.layout("kk")
-        visual_style["bbox"] = bbox
-        visual_style["margin"] = margin
-        visual_style["vertex_label"] = self.graph.vs["label"]
-        visual_style["edge_label"] = [edge_label if flag is True else ""
-                                      for flag in self.graph.es[edge_label]]
-        plot(self.graph, **visual_style)
+        return g

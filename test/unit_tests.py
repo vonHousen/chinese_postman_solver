@@ -31,8 +31,7 @@ class MyTestCase(unittest.TestCase):
         weights = [1, 1, 1]
         g = PartiallyDirectedGraph(full_adjacency_matrix_sample, labels, weights)
         # g.plot()
-        g1 = G1()
-        g1.transform_from_partially_directed(g)
+        g1 = G1(g)
         # g1.plot(edge_label="transformed")
         # g1.plot(edge_label="directed")
         g1_expected = Graph([(0,1), (1,2), (2,0)], directed=True)
