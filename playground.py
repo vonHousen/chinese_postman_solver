@@ -1,4 +1,5 @@
 from igraph import *
+from algorithm import *
 
 # g = Graph([(0,1), (0,2), (2,3), (3,4), (4,2), (2,5), (5,0), (6,3), (5,6)])
 #
@@ -19,12 +20,31 @@ from igraph import *
 # visual_style["margin"] = 20
 # plot(g, **visual_style)
 
-g = Graph([(0, 1), (0, 2), (2, 1), (3, 4)])
-g.vs["name"] = ["a", "b", "c", "d", "e"]
+# g = Graph([(0, 1), (0, 2), (2, 1), (3, 4)])
+# g.vs["name"] = ["a", "b", "c", "d", "e"]
+# visual_style = {}
+# visual_style["layout"] = g.layout("kk")
+# visual_style["bbox"] = (300, 300)
+# visual_style["margin"] = 20
+# visual_style["vertex_label"] = g.vs["name"]
+# visual_style["vertex_color"] = ["green"] * len(g.vs["name"])
+# #plot(g, **visual_style)
+# g.get_adjacency()
+
+
+full_adjacency_matrix_sample = [
+    [-1, 0, 1], # A
+    [ 1,-1, 0], # B
+    [ 0,-1,-1]  # C
+]
+labels_sample = ["A", "B", "C"]
+weights_sample = [1, 2, 10]
+
+g = PartiallyDirectedGraph(full_adjacency_matrix_sample, labels_sample, weights_sample)
 visual_style = {}
-visual_style["layout"] = g.layout("kk")
-visual_style["bbox"] = (300, 300)
-visual_style["margin"] = 20
-visual_style["vertex_label"] = g.vs["name"]
-visual_style["vertex_color"] = ["green"] * len(g.vs["name"])
-plot(g, **visual_style)
+visual_style["layout"] = g.graph.layout("kk")
+visual_style["bbox"] = (500, 500)
+visual_style["margin"] = 100
+visual_style["vertex_label"] = g.graph.vs["label"]
+visual_style["edge_label"] = ["directed" if is_directed is True else "undirected" for is_directed in g.graph.es["directed"]]
+plot(g.graph, **visual_style)
