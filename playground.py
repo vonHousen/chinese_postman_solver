@@ -32,20 +32,20 @@ from algorithm import *
 # g.get_adjacency()
 
 
-full_adjacency_matrix_sample = [
+full_adjacency_matrix_sample = np.array([
     [-1, 0, 1], # A
     [ 1,-1, 0], # B
     [ 0,-1,-1]  # C
-]
+])
 labels_sample = ["A", "B", "C"]
 weights_sample = [1, 2, 10]
-full_adjacency_matrix_sample = [
+full_adjacency_matrix_sample = np.array([
     [-1, -1, 0, 0],  # a
     [-1, 0, -1, 0],  # b
     [0, -1, -1, 0],  # c
     [0, 0, 0, -1],  # d
     [0, 0, 0, -1]  # e
-]
+])
 labels_sample = ["a", "b", "c", "d", "e"]
 weights_sample = [1, 2, 10, 1]
 

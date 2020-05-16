@@ -1,4 +1,5 @@
 from igraph import *
+import numpy as np
 
 
 class GenericGraph:
@@ -27,13 +28,13 @@ class PartiallyDirectedGraph(GenericGraph):
     Adapter for graph object from igraph library.
     Represents partially directed graph. Marked as graph of type G in the documentation.
     """
-    def __init__(self, full_adjacency_matrix: list, labels: list, weights: list):   # TODO use numpy
+    def __init__(self, full_adjacency_matrix: np.ndarray, labels: list, weights: list):
         super(PartiallyDirectedGraph, self).__init__(self.get_graph_from_full_adj_mat(full_adjacency_matrix))
         self.graph.vs["label"] = labels
         self.graph.es["weight"] = weights
 
     @staticmethod
-    def get_graph_from_full_adj_mat(full_adjacency_matrix: list):
+    def get_graph_from_full_adj_mat(full_adjacency_matrix: np.ndarray):
         """
         Gets directed graph based on given full adjacency matrix.
         Due to igraph limitations, representation of partially directed graph is in object of
@@ -42,18 +43,16 @@ class PartiallyDirectedGraph(GenericGraph):
         :return: Directed graph with edges flagged if these are directed or not.
         """
         # safety check
-        if full_adjacency_matrix is None \
-                or len(full_adjacency_matrix) == 0\
-                or len(full_adjacency_matrix[0]) == 0:
+        if full_adjacency_matrix.ndim != 2:
             return None
 
         # prepare graph g, at first without edges
         g = Graph(directed=True)
-        vertex_count = len(full_adjacency_matrix)
-        edge_count = len(full_adjacency_matrix[0])
+        vertex_count = full_adjacency_matrix.shape[0]
+        edge_count = full_adjacency_matrix.shape[1]
         g.add_vertices(vertex_count)
-        edges = []
-        directed_flags = []
+        edges = np.empty((edge_count, 2), dtype=int)
+        directed_flags = np.empty((edge_count, 1), dtype=bool)
 
         # iterate through the matrix & add edges to the graph
         end_flag = 'e'
@@ -61,7 +60,7 @@ class PartiallyDirectedGraph(GenericGraph):
         # for every edge...
         for edge_idx in range(edge_count):
 
-            new_edge = []
+            new_edge = []   # data structure for edge; consists of 2 tuples: (vertex id , end/start flag)
             # find vertices incident to the edge
             for vertex_idx in range(vertex_count):
                 edge_flag = full_adjacency_matrix[vertex_idx][edge_idx]
@@ -77,19 +76,21 @@ class PartiallyDirectedGraph(GenericGraph):
 
             # having obtained new edge, decide if it is directed or undirected
             if new_edge[0][1] == start_flag and new_edge[1][1] == end_flag:
-                edges.append((new_edge[0][0], new_edge[1][0]))
-                directed_flags.append(True)
+                edge_to_add = (new_edge[0][0], new_edge[1][0])
+                directed_flags[edge_idx] = True
             elif new_edge[0][1] == end_flag and new_edge[1][1] == start_flag:
-                edges.append((new_edge[1][0], new_edge[0][0]))
-                directed_flags.append(True)
+                edge_to_add = (new_edge[1][0], new_edge[0][0])
+                directed_flags[edge_idx] = True
             elif new_edge[0][1] == end_flag and new_edge[1][1] == end_flag:
-                edges.append((new_edge[0][0], new_edge[1][0]))
-                directed_flags.append(False)
+                edge_to_add = (new_edge[0][0], new_edge[1][0])
+                directed_flags[edge_idx] = False
             else:
                 raise RuntimeError("Incorrect structure of full_adjacency_matrix!")
+            edges[edge_idx][0] = edge_to_add[0]
+            edges[edge_idx][1] = edge_to_add[1]
 
-        g.add_edges(edges)
-        g.es['directed'] = directed_flags
+        g.add_edges(list(map(tuple, edges)))
+        g.es['directed'] = directed_flags.tolist()
         return g
 
 
