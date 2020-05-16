@@ -6,7 +6,7 @@ class PartiallyDirectedGraph:
     Adapter for graph object from igraph library.
     Represents partially directed graph. Marked as graph of type G in the documentation.
     """
-    def __init__(self, full_adjacency_matrix: list, labels: list, weights: list):
+    def __init__(self, full_adjacency_matrix: list, labels: list, weights: list):   # TODO use numpy
         self.graph = self.get_graph_from_full_adj_mat(full_adjacency_matrix)
         self.graph.vs["label"] = labels
         self.graph.es["weight"] = weights
@@ -95,7 +95,47 @@ class G1:
 
     def transform_from_partially_directed(self, graph_G: PartiallyDirectedGraph):
         """
-        Transformation from graph G to G1 as in documentation.
+        Transformation from graph G to G1 as in step 2 of the documentation.
         :return: graph G1 based on G.
         """
-        self.graph = graph_G.graph      # TODO
+        g = graph_G.graph.copy()
+
+        # count correction values because undirected edges are causing miscalculations of vertices' degrees
+        correction_for_vs = defaultdict(int)    # default value is zero
+        for edge in g.es:
+            if edge["directed"] is False:
+                correction_for_vs[edge.source] -= 1
+                correction_for_vs[edge.target] += 1
+
+        # greedy transformation of undirected edges
+        for edge in g.es:
+            if edge["directed"] is False:
+                source_vertex_id = edge.source
+                target_vertex_id = edge.target
+
+                # degree = incoming - outgoing + correction
+                source_vertex_degree = g.degree(source_vertex_id, type="in") - g.degree(source_vertex_id, type="out") \
+                                       + correction_for_vs[source_vertex_id]
+                if source_vertex_degree > 0:
+                    # transform edge into outgoing
+                    # in fact - reverse existing edge
+                    g.add_edge(target_vertex_id, source_vertex_id)["directed"] = True
+                    g.delete_edges([(source_vertex_id, target_vertex_id)])
+                else:
+                    # transform edge into incoming
+                    # in fact - leave as it is
+                    edge["directed"] = True
+                correction_for_vs[source_vertex_id] += 1
+                correction_for_vs[target_vertex_id] -= 1
+
+        self.graph = g
+
+    def plot(self, margin=100, bbox=(500, 500)):
+        visual_style = {}
+        visual_style["layout"] = self.graph.layout("kk")
+        visual_style["bbox"] = bbox
+        visual_style["margin"] = margin
+        visual_style["vertex_label"] = self.graph.vs["label"]
+        visual_style["edge_label"] = ["directed" if is_directed is True else "undirected"
+                                      for is_directed in self.graph.es["directed"]]
+        plot(self.graph, **visual_style)
