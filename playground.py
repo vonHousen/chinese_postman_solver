@@ -39,12 +39,15 @@ full_adjacency_matrix_sample = [
 ]
 labels_sample = ["A", "B", "C"]
 weights_sample = [1, 2, 10]
+full_adjacency_matrix_sample = [
+    [-1, -1, 0, 0],  # a
+    [-1, 0, -1, 0],  # b
+    [0, -1, -1, 0],  # c
+    [0, 0, 0, -1],  # d
+    [0, 0, 0, -1]  # e
+]
+labels_sample = ["a", "b", "c", "d", "e"]
+weights_sample = [1, 2, 10, 1]
 
 g = PartiallyDirectedGraph(full_adjacency_matrix_sample, labels_sample, weights_sample)
-visual_style = {}
-visual_style["layout"] = g.graph.layout("kk")
-visual_style["bbox"] = (500, 500)
-visual_style["margin"] = 100
-visual_style["vertex_label"] = g.graph.vs["label"]
-visual_style["edge_label"] = ["directed" if is_directed is True else "undirected" for is_directed in g.graph.es["directed"]]
-plot(g.graph, **visual_style)
+g.plot()

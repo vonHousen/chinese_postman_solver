@@ -71,6 +71,16 @@ class PartiallyDirectedGraph:
         g.es['directed'] = directed_flags
         return g
 
+    def plot(self, margin=100, bbox=(500, 500)):
+        visual_style = {}
+        visual_style["layout"] = self.graph.layout("kk")
+        visual_style["bbox"] = bbox
+        visual_style["margin"] = margin
+        visual_style["vertex_label"] = self.graph.vs["label"]
+        visual_style["edge_label"] = ["directed" if is_directed is True else "undirected"
+                                      for is_directed in self.graph.es["directed"]]
+        plot(self.graph, **visual_style)
+
 
 def is_connected(adjacency_matrix: list):
     return Graph.Adjacency(adjacency_matrix).is_connected()
