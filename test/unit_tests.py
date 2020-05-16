@@ -33,10 +33,11 @@ class MyTestCase(unittest.TestCase):
         # g.plot()
         g1 = G1()
         g1.transform_from_partially_directed(g)
-        g1_valid = Graph([(0,1), (1,2), (2,0)], directed=True)
-        g1_valid.vs["label"] = labels
-        g1_valid.es["weight"] = weights
-        self.assertEqual(g1.graph.get_adjacency(), g1_valid.get_adjacency())
+        # g1.plot()
+        g1_expected = Graph([(0,1), (1,2), (2,0)], directed=True)
+        g1_expected.vs["label"] = labels
+        g1_expected.es["weight"] = weights
+        self.assertEqual(g1_expected.get_adjacency(), g1.graph.get_adjacency())
 
 
 if __name__ == '__main__':
