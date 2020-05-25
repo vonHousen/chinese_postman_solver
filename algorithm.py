@@ -389,7 +389,7 @@ class G1(GenericGraph):
         total_weight = 0
         startVer = self.graph.vs.find(label = start_label)
         if startVer is None:
-            print("Incorrect start label in finding Euler cycle")
+            raise RuntimeError("Incorrect start label in finding Euler cycle")
 
         # Hierholzer’s Algorithm from
         # https://www.geeksforgeeks.org/hierholzers-algorithm-directed-graph/
@@ -444,3 +444,26 @@ class G1(GenericGraph):
         print("\nTotal weight: {}".format(total_weight))
         circuit.reverse()
         return total_weight, [self.graph.vs[vs]["label"] for vs in circuit]
+
+    def get_postman_tour(self, penalty, starting_vertex_label):
+        """
+        The top layer of the algorithm for chinese postman problem.
+        :param penalty: penalty for choosing incorrect direction
+        :param starting_vertex_label: label for starting vertex.
+        :return: (cost, tour) - cost of the tour & tour itself
+        """
+        deg_list = []  # for storing vertices degrees(our degree = DegIn - degOut)
+        if not self.have_euler_tour(deg_list):
+            self.graph.vs["deg"] = deg_list
+            g2 = self.add_penaltyTm_edges(penalty)      # create G2 as mentioned in documentation
+            gd, iNeg = self.create_complete_bipart(deg_list, g2)
+            if gd is not None:
+                self.GraphBalancing(gd, g2)
+                cost, tour = self.FindEuler(starting_vertex_label)
+            else:
+                raise RuntimeError("Uncovered logic path")
+        else:
+            cost, tour = self.FindEuler(starting_vertex_label)
+
+        return cost, tour
+

@@ -58,20 +58,7 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(g1.graph.es[g1.graph.get_eid(3, 5)]["transformed"])     # d->f
         self.assertTrue(g1.graph.es[g1.graph.get_eid(5, 2)]["transformed"])     # f->c
 
-        cost = 0
-        tour = []
-        deg_list = []  # for storing vertices degrees(our degree = DegIn - degOut)
-        if not g1.have_euler_tour(deg_list):
-            g1.graph.vs["deg"] = deg_list
-            g2 = g1.add_penaltyTm_edges(3)  # create G2 as mentioned in documentation
-            gd, iNeg = g1.create_complete_bipart(deg_list, g2)
-            if gd != None:
-                ipenCnt = g1.GraphBalancing(gd, g2)
-                # print("Number of penalty edges added: {}".format(ipenCnt))
-                cost, tour = g1.FindEuler("a")
-        else:
-            # print("Graph already has Euler tour")
-            cost, tour = g1.FindEuler("a")
+        cost, tour = g1.get_postman_tour(penalty=3, starting_vertex_label='a')
 
         #                 a -> b -> d -> e -> a -> b -> e -> a -> c -> e -> f -> c -> d -> f -> d -> e -> a
         tour_expected = ['a', 'b', 'd', 'e', 'a', 'b', 'e', 'a', 'c', 'e', 'f', 'c', 'd', 'f', 'd', 'e', 'a']
