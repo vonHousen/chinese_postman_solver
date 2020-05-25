@@ -139,12 +139,8 @@ class G1(GenericGraph):
                 correction_for_vs[edge.source] += 1
                 correction_for_vs[edge.target] -= 1
 
-        #print("DIR: {}".format(g.es['directed']))
-        #print("In: {}, Out: {}".format(g.degree(1, type="in"), g.degree(1, type="out")))
-        
         # greedy transformation of undirected edges
         for edge in g.es:
-            #print("dir: {}".format(edge['directed']))
             if not edge["directed"]:
                 source_vertex_id = edge.source
                 target_vertex_id = edge.target
@@ -296,7 +292,7 @@ class G1(GenericGraph):
         :param: PenaltyT - specifies how many times multiply average weight of edges
         :return: New graph with penalty edges
         """
-        g2 = self.graph,copy()
+        g2 = self.graph.copy()
                 # At start all edges are legal
         g2.es["IsPenalty"] = False
         
