@@ -39,6 +39,39 @@ class MyTestCase(unittest.TestCase):
         g1_expected.es["weight"] = weights
         self.assertEqual(g1_expected.get_adjacency(), g1.graph.get_adjacency())
 
+    def test_doc_fig7(self):
+        # graph G1 depicted on fig. 7 in documentation
+        full_adjacency_matrix = np.array([
+            [1, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0],  # a
+            [-1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],  # b
+            [0, -1, 0, 0, 0, 1, 1, -1, 0, 0, 0],  # c
+            [0, 0, 0, 0, -1, 0, -1, 0, 1, 1, 0],  # d
+            [0, 0, 1, -1, 0, -1, 0, 0, -1, 0, 1],  # e
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, -1, -1]  # f
+        ])
+        labels = ["a", "b", "c", "d", "e", "f"]
+        weights = [10, 20, 12, 11, 12, 18, 20, 22, 5, 14, 3]
+        g = PartiallyDirectedGraph(full_adjacency_matrix, labels, weights)
+        # g.plot()
+        g1 = G1(g)
+        deg_list = []  # for storing vertices degrees(our degree = DegIn - degOut)
+
+        if not g1.have_euler_tour(deg_list):
+            g1.graph.vs["deg"] = deg_list
+            g2 = g1.add_penaltyTm_edges(3)  # create G2 as mentioned in documentation
+            gd, iNeg = g1.create_complete_bipart(deg_list, g2)
+            if gd != None:
+                ipenCnt = g1.GraphBalancing(gd, g2)
+                # print("Number of penalty edges added: {}".format(ipenCnt))
+                tour = g1.FindEuler("a")
+        else:
+            # print("Graph already has Euler tour")
+            tour = g1.FindEuler("a")
+
+        #                 a -> b -> d -> e -> a -> b -> e -> a -> c -> e -> f -> c -> d -> f -> d -> e -> a
+        tour_expected = ['a', 'b', 'd', 'e', 'a', 'b', 'e', 'a', 'c', 'e', 'f', 'c', 'd', 'f', 'd', 'e', 'a']
+        self.assertEqual(tour_expected, tour)
+
 
 if __name__ == '__main__':
     unittest.main()

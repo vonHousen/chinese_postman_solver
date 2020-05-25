@@ -429,4 +429,5 @@ class G1(GenericGraph):
                 print(" -> ", end = "")
 
         print("\nTotal weight: {}".format(total_weight))
-        return
+        circuit.reverse()
+        return [self.graph.vs[vs]["label"] for vs in circuit]
