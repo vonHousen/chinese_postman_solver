@@ -30,6 +30,17 @@ class GenericGraph:
 
         plot(self.graph, **visual_style)
 
+    def plotLabel(self, edge_label="transformed", margin=100, bbox=(500, 500)):
+        visual_style = {}
+        visual_style["layout"] = self.graph.layout("kk")
+        visual_style["bbox"] = bbox
+        visual_style["margin"] = margin
+        visual_style["vertex_label"] = self.graph.vs["label"]
+        visual_style["edge_label"] = [edge_label if flag is True else ""
+                                      for flag in self.graph.es[edge_label]]
+
+        plot(self.graph, **visual_style)
+
 
 class PartiallyDirectedGraph(GenericGraph):
     """
@@ -124,8 +135,8 @@ class G1(GenericGraph):
         for edge in g.es:
             edge["transformed"] = False
             if not edge["directed"]:
-                correction_for_vs[edge.source] -= 1
-                correction_for_vs[edge.target] += 1
+                correction_for_vs[edge.source] += 1
+                correction_for_vs[edge.target] -= 1
 
         #print("DIR: {}".format(g.es['directed']))
         #print("In: {}, Out: {}".format(g.degree(1, type="in"), g.degree(1, type="out")))
@@ -136,6 +147,7 @@ class G1(GenericGraph):
             if not edge["directed"]:
                 source_vertex_id = edge.source
                 target_vertex_id = edge.target
+                edge_weight = edge["weight"]
 
                 # degree = incoming - outgoing + correction
                 source_vertex_degree = g.degree(source_vertex_id, type="in") - g.degree(source_vertex_id, type="out") \
@@ -145,6 +157,7 @@ class G1(GenericGraph):
                     # in fact - reverse existing edge: delete current edge and add reversed one
                     g.delete_edges([(source_vertex_id, target_vertex_id)])
                     edge = g.add_edge(target_vertex_id, source_vertex_id)
+                    edge["weight"] = edge_weight
                 else:
                     # transform edge into incoming
                     # in fact - leave as it is, just flag it differently
@@ -430,4 +443,4 @@ class G1(GenericGraph):
 
         print("\nTotal weight: {}".format(total_weight))
         circuit.reverse()
-        return [self.graph.vs[vs]["label"] for vs in circuit]
+        return total_weight, [self.graph.vs[vs]["label"] for vs in circuit]
