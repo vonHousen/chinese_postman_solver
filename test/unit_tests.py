@@ -54,7 +54,7 @@ class MyTestCase(unittest.TestCase):
         weights = [10, 20, 12, 11, 12, 18, 20, 22, 5, 14, 3]
         g = PartiallyDirectedGraph(full_adjacency_matrix, labels, weights)
         g1 = G1(g)
-        # g1.plotLabel(edge_label="id")
+        # g1.plotLabel(edge_label="transformed")
         self.assertTrue(g1.graph.es[g1.graph.get_eid(3, 5)]["transformed"])     # d->f
         self.assertTrue(g1.graph.es[g1.graph.get_eid(5, 2)]["transformed"])     # f->c
 

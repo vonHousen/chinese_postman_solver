@@ -13,7 +13,7 @@ class GenericGraph:
     def is_connected(self):
         return self.graph.is_connected()
 
-    def plotGraph(self, edge_label="dr", margin=100, bbox=(500, 500)):
+    def plotGraph(self, margin=100, bbox=(500, 500)):
         visual_style = {}
         visual_style["layout"] = self.graph.layout("kk")
         visual_style["bbox"] = bbox
@@ -29,6 +29,7 @@ class GenericGraph:
         visual_style["edge_label"] = self.graph.es["label"]
 
         plot(self.graph, **visual_style)
+
 
     def plotLabel(self, edge_label="transformed", margin=100, bbox=(500, 500)):
         visual_style = {}
