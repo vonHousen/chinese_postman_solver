@@ -30,7 +30,6 @@ class GenericGraph:
 
         plot(self.graph, **visual_style)
 
-
     def plotLabel(self, edge_label="transformed", margin=100, bbox=(500, 500)):
         visual_style = {}
         visual_style["layout"] = self.graph.layout("kk")
@@ -113,6 +112,49 @@ class PartiallyDirectedGraph(GenericGraph):
         g.es['directed'] = directed_flags.tolist()
         #print("DIR: {}".format(g.es['directed']))
         return g
+
+    @staticmethod
+    def transform_adj_mat_to_full(adjacency_matrix: np.ndarray):
+
+        # safety check
+        if adjacency_matrix.ndim != 2 or adjacency_matrix.shape[0] != adjacency_matrix.shape[1]:
+            return None
+
+        vertex_count = adjacency_matrix.shape[0]
+        # get all edges
+        edges = set()
+        for i in range(vertex_count):
+            for j in range(vertex_count):
+                if adjacency_matrix[i][j] > 0:
+                    edges.add((i, j))
+
+        # transform edges to full adjacency matrix
+        full_adjacency_matrix = np.zeros((vertex_count, len(edges)))
+        for i, edge in enumerate(edges):
+            full_adjacency_matrix[edge[0]][i] = 1
+            full_adjacency_matrix[edge[1]][i] = -1
+
+        return full_adjacency_matrix
+
+    @staticmethod
+    def are_full_adj_mat_equal(adj_mat_1: np.ndarray, adj_mat_2: np.ndarray):
+
+        if adj_mat_1.shape != adj_mat_2.shape:
+            return False
+
+        are_equal = True
+        for i in range(adj_mat_1.shape[1]):
+            is_column_ok = False
+            for j in range(adj_mat_2.shape[1]):
+                if np.array_equal(adj_mat_1[:, i], adj_mat_2[:, j]):
+                    is_column_ok = True
+                    break
+            if not is_column_ok:
+                are_equal = False
+                break
+
+        return are_equal
+
 
 
 class G1(GenericGraph):

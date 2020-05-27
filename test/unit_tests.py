@@ -66,6 +66,22 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(cost_expected, cost)
         # self.assertEqual(tour_expected, tour)
 
+    def test_transforming_from_adj_mat(self):
+
+        adj_mat = np.array([
+            [ 0, 1, 1],
+            [ 1, 0, 0],
+            [ 0, 1, 0],
+        ])
+        full_adj_mat = PartiallyDirectedGraph.transform_adj_mat_to_full(adj_mat)
+
+        expected_full_adj_mat = np.array([
+            [-1, 0, 1, 1],  # a
+            [ 1,-1, 0,-1],  # b
+            [ 0, 1,-1, 0]   # c
+        ])
+        self.assertTrue(PartiallyDirectedGraph.are_full_adj_mat_equal(expected_full_adj_mat, full_adj_mat))
+
 
 if __name__ == '__main__':
     unittest.main()
