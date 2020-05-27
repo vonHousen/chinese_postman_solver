@@ -12,7 +12,7 @@ class GenericGraph:
         self.graph = graph
 
     def is_connected(self):
-        return self.graph.is_connected()
+        return self.graph.is_connected(mode=WEAK)
 
     def plotGraph(self, margin=100, bbox=(500, 500)):
         visual_style = {}
@@ -54,6 +54,27 @@ class PartiallyDirectedGraph(GenericGraph):
             labels = list(ascii_lowercase[:full_adjacency_matrix.shape[0]])
         self.graph.vs["label"] = labels
         self.graph.es["weight"] = weights
+
+    def get_edge_between(self, vertex_1, vertex_2):
+
+        edge_idx = None
+        is_edge_upstream = False
+
+        if self.graph.get_eid(vertex_1, vertex_2, directed=False, error=False) == -1:
+            return edge_idx, is_edge_upstream
+
+        is_opposite = False
+        edge_idx = self.graph.get_eid(vertex_1, vertex_2, directed=True, error=False)
+        if edge_idx == -1:                  # if there is no edge in this direction, try opposite on
+            edge_idx = self.graph.get_eid(vertex_2, vertex_1, directed=True, error=False)
+            is_opposite = True
+        is_really_directed = self.graph.es[edge_idx]["directed"]
+
+        if is_opposite and is_really_directed:
+            is_edge_upstream = True
+
+        return edge_idx, is_edge_upstream
+
 
     @staticmethod
     def get_graph_from_full_adj_mat(full_adjacency_matrix: np.ndarray):
@@ -160,7 +181,6 @@ class PartiallyDirectedGraph(GenericGraph):
                 break
 
         return are_equal
-
 
 
 class G1(GenericGraph):
@@ -488,7 +508,7 @@ class G1(GenericGraph):
 
         print("\nTotal weight: {}".format(total_weight))
         circuit.reverse()
-        return total_weight, [self.graph.vs[vs]["label"] for vs in circuit]
+        return total_weight, [self.graph.vs[vs]["label"] for vs in circuit], circuit
 
     def get_postman_tour(self, penalty, starting_vertex_label):
         """
@@ -497,6 +517,9 @@ class G1(GenericGraph):
         :param starting_vertex_label: label for starting vertex.
         :return: (cost, tour) - cost of the tour & tour itself
         """
+        if not self.is_connected():
+            raise RuntimeError("G1 is not connected.")
+
         deg_list = []  # for storing vertices degrees(our degree = DegIn - degOut)
         if not self.have_euler_tour(deg_list):
             self.graph.vs["deg"] = deg_list
@@ -504,11 +527,11 @@ class G1(GenericGraph):
             gd, iNeg = self.create_complete_bipart(deg_list, g2)
             if gd is not None:
                 self.GraphBalancing(gd, g2)
-                cost, tour = self.FindEuler(starting_vertex_label)
+                cost, tour, tour_by_id = self.FindEuler(starting_vertex_label)
             else:
                 raise RuntimeError("Uncovered logic path")
         else:
-            cost, tour = self.FindEuler(starting_vertex_label)
+            cost, tour, tour_by_id = self.FindEuler(starting_vertex_label)
 
-        return cost, tour
+        return cost, tour, tour_by_id
 

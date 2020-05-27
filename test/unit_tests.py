@@ -58,7 +58,7 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(g1.graph.es[g1.graph.get_eid(3, 5)]["transformed"])     # d->f
         self.assertTrue(g1.graph.es[g1.graph.get_eid(5, 2)]["transformed"])     # f->c
 
-        cost, tour = g1.get_postman_tour(penalty=3, starting_vertex_label='a')
+        cost, tour, _ = g1.get_postman_tour(penalty=3, starting_vertex_label='a')
 
         #                 a -> b -> d -> e -> a -> b -> e -> a -> c -> e -> f -> c -> d -> f -> d -> e -> a
         tour_expected = ['a', 'b', 'd', 'e', 'a', 'b', 'e', 'a', 'c', 'e', 'f', 'c', 'd', 'f', 'd', 'e', 'a']
@@ -81,6 +81,38 @@ class MyTestCase(unittest.TestCase):
             [ 0, 1,-1, 0]   # c
         ])
         self.assertTrue(PartiallyDirectedGraph.are_full_adj_mat_equal(expected_full_adj_mat, full_adj_mat))
+
+    def test_get_edge_between(self):
+        full_adj_mat = np.array([
+            [-1, 0,-1, 1],  # a
+            [ 1,-1, 0,-1],  # b
+            [ 0, 1,-1, 0],  # c
+            [ 0, 0, 0, 0]   # d
+        ])
+        # b->a; c->b; a<->c; a->b : edges
+        g = PartiallyDirectedGraph(full_adj_mat, None)
+        # g.plotGraph()
+        edge, is_upstream = g.get_edge_between(1, 0)    # a->b
+        self.assertFalse(is_upstream)
+        self.assertIsNotNone(edge)
+        edge, is_upstream = g.get_edge_between(0, 1)    # b->a
+        self.assertFalse(is_upstream)
+        self.assertIsNotNone(edge)
+        edge, is_upstream = g.get_edge_between(2, 0)    # c->a
+        self.assertFalse(is_upstream)
+        self.assertIsNotNone(edge)
+        edge, is_upstream = g.get_edge_between(0, 2)    # a->c
+        self.assertFalse(is_upstream)
+        self.assertIsNotNone(edge)
+        edge, is_upstream = g.get_edge_between(1, 2)    # b->c
+        self.assertTrue(is_upstream)
+        self.assertIsNotNone(edge)
+        edge, is_upstream = g.get_edge_between(2, 1)    # c->b
+        self.assertFalse(is_upstream)
+        self.assertIsNotNone(edge)
+        edge, is_upstream = g.get_edge_between(2, 3)    # c->d
+        self.assertIsNone(edge)
+
 
 
 if __name__ == '__main__':
