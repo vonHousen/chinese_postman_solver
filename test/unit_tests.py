@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         ])
         labels = ["a", "b", "c", "d", "e"]
         weights = [1, 1, 1, 1, 1]
-        graph = PartiallyDirectedGraph(full_adjacency_matrix_sample, labels, weights)
+        graph = PartiallyDirectedGraph(full_adjacency_matrix_sample, weights, labels)
         # graph.plot()
         self.assertEqual(False, graph.is_connected())
 
@@ -29,7 +29,7 @@ class MyTestCase(unittest.TestCase):
         ])
         labels = ["a", "b", "c"]
         weights = [1, 1, 1]
-        g = PartiallyDirectedGraph(full_adjacency_matrix_sample, labels, weights)
+        g = PartiallyDirectedGraph(full_adjacency_matrix_sample, weights, labels)
         # g.plotLabel(edge_label="directed")
         g1 = G1(g)
         # g1.plotLabel(edge_label="transformed")
@@ -52,7 +52,7 @@ class MyTestCase(unittest.TestCase):
         ])
         labels = ["a", "b", "c", "d", "e", "f"]
         weights = [10, 20, 12, 11, 12, 18, 20, 22, 5, 14, 3]
-        g = PartiallyDirectedGraph(full_adjacency_matrix, labels, weights)
+        g = PartiallyDirectedGraph(full_adjacency_matrix, weights, labels)
         g1 = G1(g)
         # g1.plotLabel(edge_label="transformed")
         self.assertTrue(g1.graph.es[g1.graph.get_eid(3, 5)]["transformed"])     # d->f

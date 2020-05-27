@@ -1,6 +1,7 @@
 from igraph import *
 from collections import Counter
 import numpy as np
+from string import ascii_lowercase
 
 
 class GenericGraph:
@@ -47,8 +48,10 @@ class PartiallyDirectedGraph(GenericGraph):
     Adapter for graph object from igraph library.
     Represents partially directed graph. Marked as graph of type G in the documentation.
     """
-    def __init__(self, full_adjacency_matrix: np.ndarray, labels: list, weights: list):
+    def __init__(self, full_adjacency_matrix: np.ndarray, weights: list, labels: list = None):
         super(PartiallyDirectedGraph, self).__init__(self.get_graph_from_full_adj_mat(full_adjacency_matrix))
+        if labels is None:
+            labels = list(ascii_lowercase[:full_adjacency_matrix.shape[0]])
         self.graph.vs["label"] = labels
         self.graph.es["weight"] = weights
 
@@ -63,7 +66,7 @@ class PartiallyDirectedGraph(GenericGraph):
         """
         # safety check
         if full_adjacency_matrix.ndim != 2:
-            return None
+            raise RuntimeError("Wrong argument")
 
         # prepare graph g, at first without edges
         g = Graph(directed=True)
@@ -116,9 +119,12 @@ class PartiallyDirectedGraph(GenericGraph):
     @staticmethod
     def transform_adj_mat_to_full(adjacency_matrix: np.ndarray):
 
+        if isinstance(adjacency_matrix, Matrix):
+            adjacency_matrix = np.array(adjacency_matrix.data, dtype=np.int16)
+
         # safety check
         if adjacency_matrix.ndim != 2 or adjacency_matrix.shape[0] != adjacency_matrix.shape[1]:
-            return None
+            raise RuntimeError("Wrong argument")
 
         vertex_count = adjacency_matrix.shape[0]
         # get all edges
@@ -129,7 +135,7 @@ class PartiallyDirectedGraph(GenericGraph):
                     edges.add((i, j))
 
         # transform edges to full adjacency matrix
-        full_adjacency_matrix = np.zeros((vertex_count, len(edges)))
+        full_adjacency_matrix = np.zeros((vertex_count, len(edges)), dtype=np.int16)
         for i, edge in enumerate(edges):
             full_adjacency_matrix[edge[0]][i] = 1
             full_adjacency_matrix[edge[1]][i] = -1

@@ -94,7 +94,7 @@ full_adjacency_matrix_sample = np.array([
 ])
 labels_sample = ["a", "b", "c", "d", "e", "f"]
 weights_sample = [10, 20, 12, 11, 12, 18, 20, 22, 5, 14, 3]
-g = PartiallyDirectedGraph(full_adjacency_matrix_sample, labels_sample, weights_sample)
+g = PartiallyDirectedGraph(full_adjacency_matrix_sample, weights_sample, labels_sample)
 #g.plotGraph()
 g1= G1(g)
 
