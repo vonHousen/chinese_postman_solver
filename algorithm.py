@@ -12,6 +12,10 @@ class GenericGraph:
         self.graph = graph
 
     def is_connected(self):
+        """
+        Method determining if GenericGraph is connected (weak).
+        :return: Boolean value - is graph connected?
+        """
         return self.graph.is_connected(mode=WEAK)
 
     def plotGraph(self, margin=10, bbox=(1000, 1000)):
@@ -57,6 +61,12 @@ class PartiallyDirectedGraph(GenericGraph):
 
     #-----------------------------------------------------------------------
     def get_edge_between(self, vertex_1, vertex_2):
+        """
+        Returns the edge between 2 given vertices, along with information if edge is upstream.
+        :param vertex_1: First vertex.
+        :param vertex_2: Second vertex.
+        :return: id of the edge (if it exists) & boolean value if edge is upstream.
+        """
 
         edge_idx = None
         is_edge_upstream = False
@@ -139,6 +149,11 @@ class PartiallyDirectedGraph(GenericGraph):
 
     @staticmethod
     def transform_adj_mat_to_full(adjacency_matrix: np.ndarray):
+        """
+        Static method returning PartiallyDirectedGraph from full adjacency matrix.
+        :param adjacency_matrix: Full adjacency matrix representing graph.
+        :return: partially directed graph.
+        """
 
         if isinstance(adjacency_matrix, Matrix):
             adjacency_matrix = np.array(adjacency_matrix.data, dtype=np.int16)
@@ -165,6 +180,12 @@ class PartiallyDirectedGraph(GenericGraph):
 
     @staticmethod
     def are_full_adj_mat_equal(adj_mat_1: np.ndarray, adj_mat_2: np.ndarray):
+        """
+        Method that compares two full adjacency matrices and checks if there are representing the same graph.
+        :param adj_mat_1: First full adjacency matrix
+        :param adj_mat_2: Second full adjacency matrix
+        :return: Boolean value - if these are equal.
+        """
 
         if adj_mat_1.shape != adj_mat_2.shape:
             return False
