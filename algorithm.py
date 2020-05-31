@@ -539,7 +539,7 @@ class G1(GenericGraph):
         return total_weight, [self.graph.vs[vs]["label"] for vs in circuit], circuit
 
     #------------------------------------------------------------------------
-    def get_postman_tour(self, useAvgPenalty, penalty, starting_vertex_label):
+    def get_postman_tour(self, useAvgPenalty, penalty, starting_vertex_label, useConstW = False, constW = 80):
         """
         The top layer of the algorithm for chinese postman problem.
         :param useAvgPenalty - if true use add_penaltyAvg_edges otherwise use add_penaltyTm_edges method.
@@ -555,7 +555,10 @@ class G1(GenericGraph):
             self.graph.vs["deg"] = deg_list
                     # choosing rule for adding penalty edges
             if not useAvgPenalty:
-                g2 = self.add_penaltyTm_edges(penalty)      # create G2 as mentioned in documentation
+                if not useConstW:
+                    g2 = self.add_penaltyTm_edges(penalty)      # create G2 as mentioned in documentation
+                else:
+                    g2 = self.add_penaltyTm_edges(penalty, useConstW, constW) # create G2 as in test case
             else:
                 g2 = self.add_penaltyAvg_edges(penalty)
             print("Graph g2 created")
