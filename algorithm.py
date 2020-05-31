@@ -12,6 +12,10 @@ class GenericGraph:
         self.graph = graph
 
     def is_connected(self):
+        """
+        Method determining if GenericGraph is connected (weak).
+        :return: Boolean value - is graph connected?
+        """
         return self.graph.is_connected(mode=WEAK)
 
     def plotGraph(self, margin=100, bbox=(500, 500)):
@@ -139,6 +143,11 @@ class PartiallyDirectedGraph(GenericGraph):
 
     @staticmethod
     def transform_adj_mat_to_full(adjacency_matrix: np.ndarray):
+        """
+        Static method returning PartiallyDirectedGraph from full adjacency matrix.
+        :param adjacency_matrix: Full adjacency matrix representing graph.
+        :return: partially directed graph.
+        """
 
         if isinstance(adjacency_matrix, Matrix):
             adjacency_matrix = np.array(adjacency_matrix.data, dtype=np.int16)
@@ -165,6 +174,12 @@ class PartiallyDirectedGraph(GenericGraph):
 
     @staticmethod
     def are_full_adj_mat_equal(adj_mat_1: np.ndarray, adj_mat_2: np.ndarray):
+        """
+        Method that compares two full adjacency matrices and checks if there are representing the same graph.
+        :param adj_mat_1: First full adjacency matrix
+        :param adj_mat_2: Second full adjacency matrix
+        :return: Boolean value - if these are equal.
+        """
 
         if adj_mat_1.shape != adj_mat_2.shape:
             return False
@@ -515,7 +530,7 @@ class G1(GenericGraph):
         The top layer of the algorithm for chinese postman problem.
         :param penalty: penalty for choosing incorrect direction
         :param starting_vertex_label: label for starting vertex.
-        :return: (cost, tour) - cost of the tour & tour itself
+        :return: (cost, tour, tour_by_id) - cost of the tour & tour itself (both by labels and ids)
         """
         if not self.is_connected():
             raise RuntimeError("G1 is not connected.")
