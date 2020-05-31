@@ -74,7 +74,7 @@ weights_sample = [1, 2, 10, 1]
 # g1.plot()
 
 # grpah G1 depicted on fig. 7 in documentation
-full_adjacency_matrix_sample2 = np.array([
+full_adjacency_matrix_sample7 = np.array([
     [1,  1,-1, 0, 0, 0, 0, 0, 0, 0, 0],  # a
     [-1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],  # b
     [0, -1, 0, 0, 0, 1, 1,-1, 0, 0, 0],  # c
@@ -94,7 +94,7 @@ full_adjacency_matrix_sample = np.array([
 ])
 labels_sample = ["a", "b", "c", "d", "e", "f"]
 weights_sample = [10, 20, 12, 11, 12, 18, 20, 22, 5, 14, 3]
-g = PartiallyDirectedGraph(full_adjacency_matrix_sample, weights_sample, labels_sample)
+g = PartiallyDirectedGraph(full_adjacency_matrix_sample7, weights_sample, labels_sample)
 #g.plotGraph()
 g1= G1(g)
 
