@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module algorithm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>algorithm</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Ckamil%20zych%5Conedrive%20-%20politechnika%20warszawska%5Cpw%5Cgis%5Cp%5Cchinese_postman_solver%5Calgorithm.py">c:\users\kamil zych\onedrive - politechnika warszawska\pw\gis\p\chinese_postman_solver\algorithm.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="igraph.clustering.html">igraph.clustering</a><br>
+<a href="igraph.compat.html">igraph.compat</a><br>
+<a href="igraph.configuration.html">igraph.configuration</a><br>
+<a href="igraph.cut.html">igraph.cut</a><br>
+<a href="igraph.datatypes.html">igraph.datatypes</a><br>
+</td><td width="25%" valign=top><a href="igraph.drawing.html">igraph.drawing</a><br>
+<a href="igraph.formula.html">igraph.formula</a><br>
+<a href="gzip.html">gzip</a><br>
+<a href="igraph.layout.html">igraph.layout</a><br>
+<a href="igraph.matching.html">igraph.matching</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="operator.html">operator</a><br>
+<a href="os.html">os</a><br>
+<a href="igraph.statistics.html">igraph.statistics</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+<a href="igraph.utils.html">igraph.utils</a><br>
+<a href="igraph.version.html">igraph.version</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="algorithm.html#GenericGraph">GenericGraph</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="algorithm.html#G1">G1</a>
+</font></dt><dt><font face="helvetica, arial"><a href="algorithm.html#PartiallyDirectedGraph">PartiallyDirectedGraph</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="G1">class <strong>G1</strong></a>(<a href="algorithm.html#GenericGraph">GenericGraph</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#G1">G1</a>(graph_G:&nbsp;algorithm.<a href="#PartiallyDirectedGraph">PartiallyDirectedGraph</a>)<br>
+&nbsp;<br>
+Adapter&nbsp;for&nbsp;graph&nbsp;<a href="builtins.html#object">object</a>&nbsp;from&nbsp;igraph&nbsp;library.<br>
+Represents&nbsp;fully&nbsp;directed&nbsp;graph.&nbsp;Marked&nbsp;as&nbsp;graph&nbsp;of&nbsp;type&nbsp;<a href="#G1">G1</a>&nbsp;in&nbsp;the&nbsp;documentation.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="algorithm.html#G1">G1</a></dd>
+<dd><a href="algorithm.html#GenericGraph">GenericGraph</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="G1-FindEuler"><strong>FindEuler</strong></a>(self, start_label: str)</dt><dd><tt>Finding&nbsp;Euler&nbsp;cycle&nbsp;in&nbsp;graph&nbsp;<a href="#G1">G1</a><br>
+:param:&nbsp;start_label&nbsp;-&nbsp;starting&nbsp;vertex&nbsp;label<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="G1-GraphBalancing"><strong>GraphBalancing</strong></a>(self, gd: algorithm.GenericGraph, g2: algorithm.GenericGraph)</dt><dd><tt>Use&nbsp;Hungarian&nbsp;method&nbsp;to&nbsp;find&nbsp;optimal&nbsp;matching&nbsp;in&nbsp;given&nbsp;bipartite&nbsp;graph.&nbsp;In&nbsp;documentation&nbsp;described&nbsp;at&nbsp;3d)<br>
+Then&nbsp;get&nbsp;selcted&nbsp;egdes&nbsp;from&nbsp;biGraph&nbsp;(representing&nbsp;minimal&nbsp;paths&nbsp;in&nbsp;g1)&nbsp;<br>
+and&nbsp;find&nbsp;edge&nbsp;sequences&nbsp;corresponding&nbsp;to&nbsp;them&nbsp;in&nbsp;graph&nbsp;g1.<br>
+Duplicate&nbsp;selected&nbsp;edges&nbsp;in&nbsp;g1&nbsp;-&nbsp;documentation&nbsp;point&nbsp;3e)<br>
+:param:&nbsp;gd&nbsp;-&nbsp;complete&nbsp;bipartite&nbsp;graph,&nbsp;g2&nbsp;-&nbsp;graph&nbsp;with&nbsp;penalty&nbsp;edges<br>
+:return:&nbsp;penalties&nbsp;-&nbsp;number&nbsp;of&nbsp;added&nbsp;penalty&nbsp;edges</tt></dd></dl>
+
+<dl><dt><a name="G1-__init__"><strong>__init__</strong></a>(self, graph_G: algorithm.PartiallyDirectedGraph)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="G1-add_penaltyAvg_edges"><strong>add_penaltyAvg_edges</strong></a>(self, penaltyT: float)</dt><dd><tt>Create&nbsp;grapgh&nbsp;with&nbsp;penalty&nbsp;edges&nbsp;from&nbsp;given&nbsp;<a href="#G1">G1</a>&nbsp;graph<br>
+as&nbsp;mentioned&nbsp;in&nbsp;3b&nbsp;step&nbsp;in&nbsp;documentation.<br>
+:param:&nbsp;PenaltyT&nbsp;-&nbsp;specifies&nbsp;how&nbsp;many&nbsp;times&nbsp;multiply&nbsp;average&nbsp;weight&nbsp;of&nbsp;edges<br>
+:return:&nbsp;New&nbsp;graph&nbsp;with&nbsp;penalty&nbsp;edges</tt></dd></dl>
+
+<dl><dt><a name="G1-add_penaltyTm_edges"><strong>add_penaltyTm_edges</strong></a>(self, penaltyT: float)</dt><dd><tt>Create&nbsp;grapgh&nbsp;with&nbsp;penalty&nbsp;edges&nbsp;from&nbsp;given&nbsp;<a href="#G1">G1</a>&nbsp;graph<br>
+as&nbsp;mentioned&nbsp;in&nbsp;3b&nbsp;step&nbsp;in&nbsp;documentation.<br>
+:param:&nbsp;PenaltyT&nbsp;-&nbsp;specifies&nbsp;how&nbsp;many&nbsp;times&nbsp;multiply&nbsp;weight&nbsp;of&nbsp;corresponding&nbsp;legal&nbsp;edgde<br>
+:return:&nbsp;New&nbsp;graph&nbsp;with&nbsp;penalty&nbsp;edges</tt></dd></dl>
+
+<dl><dt><a name="G1-create_complete_bipart"><strong>create_complete_bipart</strong></a>(self, deg_list: list, g2: algorithm.GenericGraph)</dt><dd><tt>Create&nbsp;complete&nbsp;bipartie&nbsp;grapgh&nbsp;from&nbsp;given&nbsp;<a href="#G1">G1</a>&nbsp;graph<br>
+as&nbsp;mentioned&nbsp;in&nbsp;3a&nbsp;step&nbsp;in&nbsp;documentation.&nbsp;Based&nbsp;on&nbsp;g2&nbsp;adding&nbsp;weights&nbsp;for&nbsp;egdes&nbsp;in&nbsp;bipartite&nbsp;graph<br>
+:param:&nbsp;deg_list&nbsp;as&nbsp;vertices&nbsp;degrees&nbsp;in&nbsp;<a href="#G1">G1</a>&nbsp;graph,&nbsp;g2&nbsp;:&nbsp;<a href="#GenericGraph">GenericGraph</a>&nbsp;-&nbsp;graph&nbsp;with&nbsp;penalty&nbsp;edges<br>
+:return:&nbsp;Complete&nbsp;Biparte&nbsp;graph&nbsp;GD</tt></dd></dl>
+
+<dl><dt><a name="G1-get_postman_tour"><strong>get_postman_tour</strong></a>(self, penalty, starting_vertex_label)</dt><dd><tt>The&nbsp;top&nbsp;layer&nbsp;of&nbsp;the&nbsp;algorithm&nbsp;for&nbsp;chinese&nbsp;postman&nbsp;problem.<br>
+:param&nbsp;penalty:&nbsp;penalty&nbsp;for&nbsp;choosing&nbsp;incorrect&nbsp;direction<br>
+:param&nbsp;starting_vertex_label:&nbsp;label&nbsp;for&nbsp;starting&nbsp;vertex.<br>
+:return:&nbsp;(cost,&nbsp;tour,&nbsp;tour_by_id)&nbsp;-&nbsp;cost&nbsp;of&nbsp;the&nbsp;tour&nbsp;&amp;&nbsp;tour&nbsp;itself&nbsp;(both&nbsp;by&nbsp;labels&nbsp;and&nbsp;ids)</tt></dd></dl>
+
+<dl><dt><a name="G1-have_euler_tour"><strong>have_euler_tour</strong></a>(self, deg_list: list)</dt><dd><tt>Check&nbsp;for&nbsp;Euler&nbsp;tour&nbsp;in&nbsp;graph<br>
+:param:&nbsp;deg_list&nbsp;-&nbsp;list&nbsp;for&nbsp;storing&nbsp;vertices&nbsp;degrees<br>
+:return:&nbsp;boolean</tt></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="G1-transform_from_partially_directed"><strong>transform_from_partially_directed</strong></a>(graph_G: algorithm.PartiallyDirectedGraph)</dt><dd><tt>Transformation&nbsp;from&nbsp;graph&nbsp;G&nbsp;to&nbsp;<a href="#G1">G1</a>&nbsp;as&nbsp;in&nbsp;step&nbsp;2&nbsp;of&nbsp;the&nbsp;documentation.<br>
+:return:&nbsp;graph&nbsp;<a href="#G1">G1</a>&nbsp;based&nbsp;on&nbsp;G.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="algorithm.html#GenericGraph">GenericGraph</a>:<br>
+<dl><dt><a name="G1-is_connected"><strong>is_connected</strong></a>(self)</dt><dd><tt>Method&nbsp;determining&nbsp;if&nbsp;<a href="#GenericGraph">GenericGraph</a>&nbsp;is&nbsp;connected&nbsp;(weak).<br>
+:return:&nbsp;Boolean&nbsp;value&nbsp;-&nbsp;is&nbsp;graph&nbsp;connected?</tt></dd></dl>
+
+<dl><dt><a name="G1-plotGraph"><strong>plotGraph</strong></a>(self, margin=100, bbox=(500, 500))</dt></dl>
+
+<dl><dt><a name="G1-plotLabel"><strong>plotLabel</strong></a>(self, edge_label='transformed', margin=100, bbox=(500, 500))</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="algorithm.html#GenericGraph">GenericGraph</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="GenericGraph">class <strong>GenericGraph</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#GenericGraph">GenericGraph</a>(graph:&nbsp;igraph.Graph)<br>
+&nbsp;<br>
+Generic&nbsp;class&nbsp;for&nbsp;graphs.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="GenericGraph-__init__"><strong>__init__</strong></a>(self, graph: igraph.Graph)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="GenericGraph-is_connected"><strong>is_connected</strong></a>(self)</dt><dd><tt>Method&nbsp;determining&nbsp;if&nbsp;<a href="#GenericGraph">GenericGraph</a>&nbsp;is&nbsp;connected&nbsp;(weak).<br>
+:return:&nbsp;Boolean&nbsp;value&nbsp;-&nbsp;is&nbsp;graph&nbsp;connected?</tt></dd></dl>
+
+<dl><dt><a name="GenericGraph-plotGraph"><strong>plotGraph</strong></a>(self, margin=100, bbox=(500, 500))</dt></dl>
+
+<dl><dt><a name="GenericGraph-plotLabel"><strong>plotLabel</strong></a>(self, edge_label='transformed', margin=100, bbox=(500, 500))</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PartiallyDirectedGraph">class <strong>PartiallyDirectedGraph</strong></a>(<a href="algorithm.html#GenericGraph">GenericGraph</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PartiallyDirectedGraph">PartiallyDirectedGraph</a>(full_adjacency_matrix:&nbsp;numpy.ndarray,&nbsp;weights:&nbsp;list,&nbsp;labels:&nbsp;list&nbsp;=&nbsp;None)<br>
+&nbsp;<br>
+Adapter&nbsp;for&nbsp;graph&nbsp;<a href="builtins.html#object">object</a>&nbsp;from&nbsp;igraph&nbsp;library.<br>
+Represents&nbsp;partially&nbsp;directed&nbsp;graph.&nbsp;Marked&nbsp;as&nbsp;graph&nbsp;of&nbsp;type&nbsp;G&nbsp;in&nbsp;the&nbsp;documentation.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="algorithm.html#PartiallyDirectedGraph">PartiallyDirectedGraph</a></dd>
+<dd><a href="algorithm.html#GenericGraph">GenericGraph</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="PartiallyDirectedGraph-__init__"><strong>__init__</strong></a>(self, full_adjacency_matrix: numpy.ndarray, weights: list, labels: list = None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="PartiallyDirectedGraph-get_edge_between"><strong>get_edge_between</strong></a>(self, vertex_1, vertex_2)</dt></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="PartiallyDirectedGraph-are_full_adj_mat_equal"><strong>are_full_adj_mat_equal</strong></a>(adj_mat_1: numpy.ndarray, adj_mat_2: numpy.ndarray)</dt><dd><tt>Method&nbsp;that&nbsp;compares&nbsp;two&nbsp;full&nbsp;adjacency&nbsp;matrices&nbsp;and&nbsp;checks&nbsp;if&nbsp;there&nbsp;are&nbsp;representing&nbsp;the&nbsp;same&nbsp;graph.<br>
+:param&nbsp;adj_mat_1:&nbsp;First&nbsp;full&nbsp;adjacency&nbsp;matrix<br>
+:param&nbsp;adj_mat_2:&nbsp;Second&nbsp;full&nbsp;adjacency&nbsp;matrix<br>
+:return:&nbsp;Boolean&nbsp;value&nbsp;-&nbsp;if&nbsp;these&nbsp;are&nbsp;equal.</tt></dd></dl>
+
+<dl><dt><a name="PartiallyDirectedGraph-get_graph_from_full_adj_mat"><strong>get_graph_from_full_adj_mat</strong></a>(full_adjacency_matrix: numpy.ndarray)</dt><dd><tt>Gets&nbsp;directed&nbsp;graph&nbsp;based&nbsp;on&nbsp;given&nbsp;full&nbsp;adjacency&nbsp;matrix.<br>
+Due&nbsp;to&nbsp;igraph&nbsp;limitations,&nbsp;representation&nbsp;of&nbsp;partially&nbsp;directed&nbsp;graph&nbsp;is&nbsp;in&nbsp;<a href="builtins.html#object">object</a>&nbsp;of<br>
+directed&nbsp;graph,&nbsp;but&nbsp;edges&nbsp;are&nbsp;flagged&nbsp;if&nbsp;these&nbsp;are&nbsp;directed&nbsp;or&nbsp;not.<br>
+:param&nbsp;full_adjacency_matrix:&nbsp;(list&nbsp;of&nbsp;lists)&nbsp;full&nbsp;adjacency&nbsp;matrix<br>
+:return:&nbsp;Directed&nbsp;graph&nbsp;with&nbsp;edges&nbsp;flagged&nbsp;if&nbsp;these&nbsp;are&nbsp;directed&nbsp;or&nbsp;not.</tt></dd></dl>
+
+<dl><dt><a name="PartiallyDirectedGraph-transform_adj_mat_to_full"><strong>transform_adj_mat_to_full</strong></a>(adjacency_matrix: numpy.ndarray)</dt><dd><tt>Static&nbsp;method&nbsp;returning&nbsp;<a href="#PartiallyDirectedGraph">PartiallyDirectedGraph</a>&nbsp;from&nbsp;full&nbsp;adjacency&nbsp;matrix.<br>
+:param&nbsp;adjacency_matrix:&nbsp;Full&nbsp;adjacency&nbsp;matrix&nbsp;representing&nbsp;graph.<br>
+:return:&nbsp;partially&nbsp;directed&nbsp;graph.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="algorithm.html#GenericGraph">GenericGraph</a>:<br>
+<dl><dt><a name="PartiallyDirectedGraph-is_connected"><strong>is_connected</strong></a>(self)</dt><dd><tt>Method&nbsp;determining&nbsp;if&nbsp;<a href="#GenericGraph">GenericGraph</a>&nbsp;is&nbsp;connected&nbsp;(weak).<br>
+:return:&nbsp;Boolean&nbsp;value&nbsp;-&nbsp;is&nbsp;graph&nbsp;connected?</tt></dd></dl>
+
+<dl><dt><a name="PartiallyDirectedGraph-plotGraph"><strong>plotGraph</strong></a>(self, margin=100, bbox=(500, 500))</dt></dl>
+
+<dl><dt><a name="PartiallyDirectedGraph-plotLabel"><strong>plotLabel</strong></a>(self, edge_label='transformed', margin=100, bbox=(500, 500))</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="algorithm.html#GenericGraph">GenericGraph</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-community_to_membership"><strong>community_to_membership</strong></a>(...)</dt><dd><tt><a href="#-community_to_membership">community_to_membership</a>(merges,&nbsp;nodes,&nbsp;steps,&nbsp;return_csize=False)</tt></dd></dl>
+ <dl><dt><a name="-convex_hull"><strong>convex_hull</strong></a>(...)</dt><dd><tt><a href="#-convex_hull">convex_hull</a>(vs,&nbsp;coords=False)<br>
+&nbsp;<br>
+Calculates&nbsp;the&nbsp;convex&nbsp;hull&nbsp;of&nbsp;a&nbsp;given&nbsp;point&nbsp;set.<br>
+&nbsp;<br>
+@param&nbsp;vs:&nbsp;the&nbsp;point&nbsp;set&nbsp;as&nbsp;a&nbsp;list&nbsp;of&nbsp;lists<br>
+@param&nbsp;coords:&nbsp;if&nbsp;C{True},&nbsp;the&nbsp;function&nbsp;returns&nbsp;the<br>
+&nbsp;&nbsp;coordinates&nbsp;of&nbsp;the&nbsp;corners&nbsp;of&nbsp;the&nbsp;convex&nbsp;hull&nbsp;polygon,<br>
+&nbsp;&nbsp;otherwise&nbsp;returns&nbsp;the&nbsp;corner&nbsp;indices.<br>
+@return:&nbsp;either&nbsp;the&nbsp;hull's&nbsp;corner&nbsp;coordinates&nbsp;or&nbsp;the&nbsp;point<br>
+&nbsp;&nbsp;indices&nbsp;corresponding&nbsp;to&nbsp;them,&nbsp;depending&nbsp;on&nbsp;the&nbsp;C{coords}<br>
+&nbsp;&nbsp;parameter.</tt></dd></dl>
+ <dl><dt><a name="-cos"><strong>cos</strong></a>(x, /)</dt><dd><tt>Return&nbsp;the&nbsp;cosine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>
+ <dl><dt><a name="-is_degree_sequence"><strong>is_degree_sequence</strong></a>(...)</dt><dd><tt><a href="#-is_degree_sequence">is_degree_sequence</a>(out_deg,&nbsp;in_deg=None)<br>
+&nbsp;<br>
+Returns&nbsp;whether&nbsp;a&nbsp;list&nbsp;of&nbsp;degrees&nbsp;can&nbsp;be&nbsp;a&nbsp;degree&nbsp;sequence&nbsp;of&nbsp;some&nbsp;graph.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;it&nbsp;is&nbsp;not&nbsp;required&nbsp;for&nbsp;the&nbsp;graph&nbsp;to&nbsp;be&nbsp;simple;&nbsp;in&nbsp;other&nbsp;words,<br>
+this&nbsp;function&nbsp;may&nbsp;return&nbsp;C{True}&nbsp;for&nbsp;degree&nbsp;sequences&nbsp;that&nbsp;can&nbsp;be&nbsp;realized<br>
+using&nbsp;one&nbsp;or&nbsp;more&nbsp;multiple&nbsp;or&nbsp;loop&nbsp;edges&nbsp;only.<br>
+&nbsp;<br>
+In&nbsp;particular,&nbsp;this&nbsp;function&nbsp;checks&nbsp;whether<br>
+&nbsp;<br>
+&nbsp;&nbsp;-&nbsp;all&nbsp;the&nbsp;degrees&nbsp;are&nbsp;non-negative<br>
+&nbsp;&nbsp;-&nbsp;for&nbsp;undirected&nbsp;graphs,&nbsp;the&nbsp;sum&nbsp;of&nbsp;degrees&nbsp;are&nbsp;even<br>
+&nbsp;&nbsp;-&nbsp;for&nbsp;directed&nbsp;graphs,&nbsp;the&nbsp;two&nbsp;degree&nbsp;sequences&nbsp;are&nbsp;of&nbsp;the&nbsp;same&nbsp;length&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;equal&nbsp;sums<br>
+&nbsp;<br>
+@param&nbsp;out_deg:&nbsp;the&nbsp;list&nbsp;of&nbsp;degrees.&nbsp;For&nbsp;directed&nbsp;graphs,&nbsp;this&nbsp;list&nbsp;must<br>
+&nbsp;&nbsp;contain&nbsp;the&nbsp;out-degrees&nbsp;of&nbsp;the&nbsp;vertices.<br>
+@param&nbsp;in_deg:&nbsp;the&nbsp;list&nbsp;of&nbsp;in-degrees&nbsp;for&nbsp;directed&nbsp;graphs.&nbsp;This&nbsp;parameter<br>
+&nbsp;&nbsp;must&nbsp;be&nbsp;C{None}&nbsp;for&nbsp;undirected&nbsp;graphs.<br>
+@return:&nbsp;C{True}&nbsp;if&nbsp;there&nbsp;exists&nbsp;some&nbsp;graph&nbsp;that&nbsp;can&nbsp;realize&nbsp;the&nbsp;given&nbsp;degree<br>
+&nbsp;&nbsp;sequence,&nbsp;C{False}&nbsp;otherwise.@see:&nbsp;L{<a href="#-is_graphical_degree_sequence">is_graphical_degree_sequence</a>()}&nbsp;if&nbsp;you&nbsp;do&nbsp;not&nbsp;want&nbsp;to&nbsp;allow&nbsp;multiple<br>
+&nbsp;&nbsp;or&nbsp;loop&nbsp;edges.</tt></dd></dl>
+ <dl><dt><a name="-is_graphical_degree_sequence"><strong>is_graphical_degree_sequence</strong></a>(...)</dt><dd><tt><a href="#-is_graphical_degree_sequence">is_graphical_degree_sequence</a>(out_deg,&nbsp;in_deg=None)<br>
+&nbsp;<br>
+Returns&nbsp;whether&nbsp;a&nbsp;list&nbsp;of&nbsp;degrees&nbsp;can&nbsp;be&nbsp;a&nbsp;degree&nbsp;sequence&nbsp;of&nbsp;some&nbsp;simple&nbsp;graph.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;it&nbsp;is&nbsp;required&nbsp;for&nbsp;the&nbsp;graph&nbsp;to&nbsp;be&nbsp;simple;&nbsp;in&nbsp;other&nbsp;words,<br>
+this&nbsp;function&nbsp;will&nbsp;return&nbsp;C{False}&nbsp;for&nbsp;degree&nbsp;sequences&nbsp;that&nbsp;cannot&nbsp;be&nbsp;realized<br>
+without&nbsp;using&nbsp;one&nbsp;or&nbsp;more&nbsp;multiple&nbsp;or&nbsp;loop&nbsp;edges.<br>
+&nbsp;<br>
+@param&nbsp;out_deg:&nbsp;the&nbsp;list&nbsp;of&nbsp;degrees.&nbsp;For&nbsp;directed&nbsp;graphs,&nbsp;this&nbsp;list&nbsp;must<br>
+&nbsp;&nbsp;contain&nbsp;the&nbsp;out-degrees&nbsp;of&nbsp;the&nbsp;vertices.<br>
+@param&nbsp;in_deg:&nbsp;the&nbsp;list&nbsp;of&nbsp;in-degrees&nbsp;for&nbsp;directed&nbsp;graphs.&nbsp;This&nbsp;parameter<br>
+&nbsp;&nbsp;must&nbsp;be&nbsp;C{None}&nbsp;for&nbsp;undirected&nbsp;graphs.<br>
+@return:&nbsp;C{True}&nbsp;if&nbsp;there&nbsp;exists&nbsp;some&nbsp;simple&nbsp;graph&nbsp;that&nbsp;can&nbsp;realize&nbsp;the&nbsp;given<br>
+&nbsp;&nbsp;degree&nbsp;sequence,&nbsp;C{False}&nbsp;otherwise.<br>
+@see:&nbsp;L{<a href="#-is_degree_sequence">is_degree_sequence</a>()}&nbsp;if&nbsp;you&nbsp;want&nbsp;to&nbsp;allow&nbsp;multiple&nbsp;or&nbsp;loop&nbsp;edges.</tt></dd></dl>
+ <dl><dt><a name="-set_progress_handler"><strong>set_progress_handler</strong></a>(...)</dt><dd><tt><a href="#-set_progress_handler">set_progress_handler</a>(handler)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;handler&nbsp;to&nbsp;be&nbsp;called&nbsp;when&nbsp;igraph&nbsp;is&nbsp;performing&nbsp;a&nbsp;long&nbsp;operation.<br>
+@param&nbsp;handler:&nbsp;the&nbsp;progress&nbsp;handler&nbsp;function.&nbsp;It&nbsp;must&nbsp;accept&nbsp;two<br>
+&nbsp;&nbsp;arguments,&nbsp;the&nbsp;first&nbsp;is&nbsp;the&nbsp;message&nbsp;informing&nbsp;the&nbsp;user&nbsp;about<br>
+&nbsp;&nbsp;what&nbsp;igraph&nbsp;is&nbsp;doing&nbsp;right&nbsp;now,&nbsp;the&nbsp;second&nbsp;is&nbsp;the&nbsp;actual<br>
+&nbsp;&nbsp;progress&nbsp;information&nbsp;(a&nbsp;percentage).</tt></dd></dl>
+ <dl><dt><a name="-set_random_number_generator"><strong>set_random_number_generator</strong></a>(...)</dt><dd><tt><a href="#-set_random_number_generator">set_random_number_generator</a>(generator)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;random&nbsp;number&nbsp;generator&nbsp;used&nbsp;by&nbsp;igraph.<br>
+@param&nbsp;generator:&nbsp;the&nbsp;generator&nbsp;to&nbsp;be&nbsp;used.&nbsp;It&nbsp;must&nbsp;be&nbsp;a&nbsp;Python&nbsp;<a href="builtins.html#object">object</a><br>
+&nbsp;&nbsp;with&nbsp;at&nbsp;least&nbsp;three&nbsp;attributes:&nbsp;C{random},&nbsp;C{randint}&nbsp;and&nbsp;C{gauss}.<br>
+&nbsp;&nbsp;Each&nbsp;of&nbsp;them&nbsp;must&nbsp;be&nbsp;callable&nbsp;and&nbsp;their&nbsp;signature&nbsp;and&nbsp;behaviour<br>
+&nbsp;&nbsp;must&nbsp;be&nbsp;identical&nbsp;to&nbsp;C{random.random},&nbsp;C{random.randint}&nbsp;and<br>
+&nbsp;&nbsp;C{random.gauss}.&nbsp;By&nbsp;default,&nbsp;igraph&nbsp;uses&nbsp;the&nbsp;C{random}&nbsp;module&nbsp;for<br>
+&nbsp;&nbsp;random&nbsp;number&nbsp;generation,&nbsp;but&nbsp;you&nbsp;can&nbsp;supply&nbsp;your&nbsp;alternative<br>
+&nbsp;&nbsp;implementation&nbsp;here.&nbsp;If&nbsp;the&nbsp;given&nbsp;generator&nbsp;is&nbsp;C{None},&nbsp;igraph<br>
+&nbsp;&nbsp;reverts&nbsp;to&nbsp;the&nbsp;default&nbsp;Mersenne&nbsp;twister&nbsp;generator&nbsp;implemented&nbsp;in&nbsp;the<br>
+&nbsp;&nbsp;C&nbsp;layer,&nbsp;which&nbsp;might&nbsp;be&nbsp;slightly&nbsp;faster&nbsp;than&nbsp;calling&nbsp;back&nbsp;to&nbsp;Python<br>
+&nbsp;&nbsp;for&nbsp;random&nbsp;numbers,&nbsp;but&nbsp;you&nbsp;cannot&nbsp;set&nbsp;its&nbsp;seed&nbsp;or&nbsp;save&nbsp;its&nbsp;state.</tt></dd></dl>
+ <dl><dt><a name="-set_status_handler"><strong>set_status_handler</strong></a>(...)</dt><dd><tt><a href="#-set_status_handler">set_status_handler</a>(handler)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;handler&nbsp;to&nbsp;be&nbsp;called&nbsp;when&nbsp;igraph&nbsp;tries&nbsp;to&nbsp;display&nbsp;a&nbsp;status<br>
+message.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;used&nbsp;to&nbsp;communicate&nbsp;the&nbsp;progress&nbsp;of&nbsp;some&nbsp;calculations&nbsp;where<br>
+no&nbsp;reasonable&nbsp;progress&nbsp;percentage&nbsp;can&nbsp;be&nbsp;given&nbsp;(so&nbsp;it&nbsp;is&nbsp;not&nbsp;possible<br>
+to&nbsp;use&nbsp;the&nbsp;progress&nbsp;handler).<br>
+&nbsp;<br>
+@param&nbsp;handler:&nbsp;the&nbsp;status&nbsp;handler&nbsp;function.&nbsp;It&nbsp;must&nbsp;accept&nbsp;a&nbsp;single<br>
+&nbsp;&nbsp;argument,&nbsp;the&nbsp;message&nbsp;that&nbsp;informs&nbsp;the&nbsp;user&nbsp;about&nbsp;what&nbsp;igraph&nbsp;is<br>
+&nbsp;&nbsp;doing&nbsp;right&nbsp;now.</tt></dd></dl>
+ <dl><dt><a name="-sin"><strong>sin</strong></a>(x, /)</dt><dd><tt>Return&nbsp;the&nbsp;sine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>
+ <dl><dt><a name="-warn"><strong>warn</strong></a>(message, category=None, stacklevel=1, source=None)</dt><dd><tt>Issue&nbsp;a&nbsp;warning,&nbsp;or&nbsp;maybe&nbsp;ignore&nbsp;it&nbsp;or&nbsp;raise&nbsp;an&nbsp;exception.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>ADJ_DIRECTED</strong> = 0<br>
+<strong>ADJ_LOWER</strong> = 3<br>
+<strong>ADJ_MAX</strong> = 1<br>
+<strong>ADJ_MIN</strong> = 4<br>
+<strong>ADJ_PLUS</strong> = 5<br>
+<strong>ADJ_UNDIRECTED</strong> = 1<br>
+<strong>ADJ_UPPER</strong> = 2<br>
+<strong>ALL</strong> = 3<br>
+<strong>BLISS_F</strong> = 0<br>
+<strong>BLISS_FL</strong> = 1<br>
+<strong>BLISS_FLM</strong> = 4<br>
+<strong>BLISS_FM</strong> = 3<br>
+<strong>BLISS_FS</strong> = 2<br>
+<strong>BLISS_FSM</strong> = 5<br>
+<strong>GET_ADJACENCY_BOTH</strong> = 2<br>
+<strong>GET_ADJACENCY_LOWER</strong> = 1<br>
+<strong>GET_ADJACENCY_UPPER</strong> = 0<br>
+<strong>IN</strong> = 2<br>
+<strong>OUT</strong> = 1<br>
+<strong>REWIRING_SIMPLE</strong> = 0<br>
+<strong>REWIRING_SIMPLE_LOOPS</strong> = 1<br>
+<strong>STAR_IN</strong> = 1<br>
+<strong>STAR_MUTUAL</strong> = 3<br>
+<strong>STAR_OUT</strong> = 0<br>
+<strong>STAR_UNDIRECTED</strong> = 2<br>
+<strong>STRONG</strong> = 2<br>
+<strong>TRANSITIVITY_NAN</strong> = 0<br>
+<strong>TRANSITIVITY_ZERO</strong> = 1<br>
+<strong>TREE_IN</strong> = 1<br>
+<strong>TREE_OUT</strong> = 0<br>
+<strong>TREE_UNDIRECTED</strong> = 2<br>
+<strong>WEAK</strong> = 1<br>
+<strong>arpack_options</strong> = &lt;igraph.ARPACKOptions object&gt;<br>
+<strong>ascii_lowercase</strong> = 'abcdefghijklmnopqrstuvwxyz'<br>
+<strong>config</strong> = &lt;igraph.configuration.Configuration object&gt;<br>
+<strong>dbl_epsilon</strong> = 2.220446049250313e-16<br>
+<strong>known_colors</strong> = {'alice blue': (0.9411764705882353, 0.9725490196078431, 1.0, 1.0), 'aliceblue': (0.9411764705882353, 0.9725490196078431, 1.0, 1.0), 'antique white': (0.9803921568627451, 0.9215686274509803, 0.8431372549019608, 1.0), 'antiquewhite': (0.9803921568627451, 0.9215686274509803, 0.8431372549019608, 1.0), 'antiquewhite1': (1.0, 0.9372549019607843, 0.8588235294117647, 1.0), 'antiquewhite2': (0.9333333333333333, 0.8745098039215686, 0.8, 1.0), 'antiquewhite3': (0.803921568627451, 0.7529411764705882, 0.6901960784313725, 1.0), 'antiquewhite4': (0.5450980392156862, 0.5137254901960784, 0.47058823529411764, 1.0), 'aqua': (0.0, 1.0, 1.0, 1.0), 'aquamarine': (0.4980392156862745, 1.0, 0.8313725490196079, 1.0), ...}<br>
+<strong>name</strong> = 'write_svg'<br>
+<strong>palettes</strong> = {'gray': &lt;GradientPalette with 256 colors&gt;, 'heat': &lt;AdvancedGradientPalette with 256 colors&gt;, 'rainbow': &lt;RainbowPalette with 256 colors&gt;, 'red-black-green': &lt;AdvancedGradientPalette with 256 colors&gt;, 'red-blue': &lt;GradientPalette with 256 colors&gt;, 'red-green': &lt;GradientPalette with 256 colors&gt;, 'red-purple-blue': &lt;AdvancedGradientPalette with 256 colors&gt;, 'red-yellow-green': &lt;AdvancedGradientPalette with 256 colors&gt;, 'terrain': &lt;AdvancedGradientPalette with 256 colors&gt;}<br>
+<strong>pi</strong> = 3.141592653589793</td></tr></table>
+</body></html>
