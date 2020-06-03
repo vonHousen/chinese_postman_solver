@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['partiallydirectedgraph',['PartiallyDirectedGraph',['../classchinese__postman__solver_1_1algorithm_1_1_partially_directed_graph.html',1,'chinese_postman_solver::algorithm']]]
+  ['mytestcase',['MyTestCase',['../classunit__tests_1_1_my_test_case.html',1,'unit_tests']]]
 ];

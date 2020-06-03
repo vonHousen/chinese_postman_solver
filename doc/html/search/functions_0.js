@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['_5f_5finit_5f_5f',['__init__',['../classchinese__postman__solver_1_1algorithm_1_1_generic_graph.html#addc8e546c128c0b8467cfed98da98d89',1,'chinese_postman_solver.algorithm.GenericGraph.__init__()'],['../classchinese__postman__solver_1_1algorithm_1_1_partially_directed_graph.html#a7091136f0c76d56e96daecd0d5aae673',1,'chinese_postman_solver.algorithm.PartiallyDirectedGraph.__init__()'],['../classchinese__postman__solver_1_1algorithm_1_1_g1.html#af7ece00912bd1b3a333ddf318267f518',1,'chinese_postman_solver.algorithm.G1.__init__()']]]
+  ['add_5fpenaltyavg_5fedges',['add_penaltyAvg_edges',['../classchinese__postman__solver_1_1algorithm_1_1_g1.html#a9dc8100d14068996a988db91163ceca4',1,'chinese_postman_solver::algorithm::G1']]],
+  ['add_5fpenaltytm_5fedges',['add_penaltyTm_edges',['../classchinese__postman__solver_1_1algorithm_1_1_g1.html#a9c4f25cdaa0d6759a508f09b7e8c557d',1,'chinese_postman_solver::algorithm::G1']]],
+  ['are_5ffull_5fadj_5fmat_5fequal',['are_full_adj_mat_equal',['../classchinese__postman__solver_1_1algorithm_1_1_partially_directed_graph.html#afc1ee48bb549362669890abd898794d5',1,'chinese_postman_solver::algorithm::PartiallyDirectedGraph']]]
 ];

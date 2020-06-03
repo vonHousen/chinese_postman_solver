@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['edge_5fcount',['edge_count',['../namespacechinese__postman__solver_1_1experiments.html#ae390043654e9a5c8e290cd1b61a6e8d5',1,'chinese_postman_solver::experiments']]],
-  ['edge_5fidx',['edge_idx',['../namespacechinese__postman__solver_1_1experiments.html#abd8e8b5b76f010ddbf86cf1fec5f08ec',1,'chinese_postman_solver::experiments']]],
-  ['experiments_2epy',['experiments.py',['../experiments_8py.html',1,'']]]
+  ['have_5feuler_5ftour',['have_euler_tour',['../classchinese__postman__solver_1_1algorithm_1_1_g1.html#a05d27c33baf2b3d846d1c08206b04ae0',1,'chinese_postman_solver::algorithm::G1']]]
 ];
