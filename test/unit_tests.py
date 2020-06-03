@@ -5,8 +5,12 @@ from algorithm import *
 class MyTestCase(unittest.TestCase):
 
     def test_checking_connectivity(self):
-        # test as described in documentation
-        # graph depicted on fig. 6 in documentation
+        """
+        Test function checking connectivity as described in documentation.
+        Uses graph depicted on fig. 6 in documentation.
+        """
+
+        # graph depicted on fig. 6 in documentation.
         full_adjacency_matrix_sample = np.array([
             [-1,-1, 0, 0],  # a
             [-1, 0,-1, 0],  # b
@@ -21,6 +25,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(False, graph.is_connected())
 
     def test_transforming_g_to_g1(self):
+        """
+        Test function transforming graph G into G1 as described in documentation.
+        Uses graph depicted on fig. 2 in documentation.
+        """
+
         # graph depicted on fig. 2 in documentation
         full_adjacency_matrix_sample = np.array([
             [ 1, 0,-1],  # a
@@ -41,6 +50,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(g1_expected.get_adjacency(), g1.graph.get_adjacency())
 
     def test_doc_fig7(self):
+        """
+        Test finding chinese postman's tour as described in documentation.
+        Uses graph depicted on fig. 7 in documentation.
+        """
+
         # graph G1 depicted on fig. 7 in documentation (edges d->f & f->c are undirected)
         full_adjacency_matrix = np.array([
             [ 1, 1,-1, 0, 0, 0, 0, 0, 0, 0, 0],  # a
@@ -73,6 +87,9 @@ class MyTestCase(unittest.TestCase):
         # self.assertEqual(tour_expected, tour)
 
     def test_transforming_from_adj_mat(self):
+        """
+        Test function transforming from full adjacency matrix into G graph.
+        """
 
         adj_mat = np.array([
             [ 0, 1, 1],
@@ -89,6 +106,10 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(PartiallyDirectedGraph.are_full_adj_mat_equal(expected_full_adj_mat, full_adj_mat))
 
     def test_get_edge_between(self):
+        """
+        Test function that returns edge between given vertices.
+        """
+
         full_adj_mat = np.array([
             [-1, 0,-1, 1],  # a
             [ 1,-1, 0,-1],  # b
@@ -118,7 +139,6 @@ class MyTestCase(unittest.TestCase):
         self.assertIsNotNone(edge)
         edge, is_upstream = g.get_edge_between(2, 3)    # c->d
         self.assertIsNone(edge)
-
 
 
 if __name__ == '__main__':
