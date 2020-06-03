@@ -58,7 +58,13 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(g1.graph.es[g1.graph.get_eid(3, 5)]["transformed"])     # d->f
         self.assertTrue(g1.graph.es[g1.graph.get_eid(5, 2)]["transformed"])     # f->c
 
-        cost, tour, _ = g1.get_postman_tour(penalty=3, starting_vertex_label='a')
+        cost, tour, _, _ = g1.get_postman_tour(
+            useAvgPenalty=False,
+            penalty=None,
+            starting_vertex_label='a',
+            useConstW=True,
+            constW=80
+        )
 
         #                 a -> b -> d -> e -> a -> b -> e -> a -> c -> e -> f -> c -> d -> f -> d -> e -> a
         tour_expected = ['a', 'b', 'd', 'e', 'a', 'b', 'e', 'a', 'c', 'e', 'f', 'c', 'd', 'f', 'd', 'e', 'a']
