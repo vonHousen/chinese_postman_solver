@@ -18,7 +18,7 @@ class GenericGraph:
         """
         return self.graph.is_connected(mode=WEAK)
 
-    def plotGraph(self, margin=100, bbox=(500, 500)):
+    def plotGraph(self, margin=10, bbox=(1000, 1000)):
         visual_style = {}
         visual_style["layout"] = self.graph.layout("kk")
         visual_style["bbox"] = bbox
@@ -59,7 +59,14 @@ class PartiallyDirectedGraph(GenericGraph):
         self.graph.vs["label"] = labels
         self.graph.es["weight"] = weights
 
+    #-----------------------------------------------------------------------
     def get_edge_between(self, vertex_1, vertex_2):
+        """
+        Returns the edge between 2 given vertices, along with information if edge is upstream.
+        :param vertex_1: First vertex.
+        :param vertex_2: Second vertex.
+        :return: id of the edge (if it exists) & boolean value if edge is upstream.
+        """
 
         edge_idx = None
         is_edge_upstream = False
@@ -138,7 +145,6 @@ class PartiallyDirectedGraph(GenericGraph):
 
         g.add_edges(list(map(tuple, edges)))
         g.es['directed'] = directed_flags.tolist()
-        #print("DIR: {}".format(g.es['directed']))
         return g
 
     @staticmethod
@@ -297,7 +303,7 @@ class G1(GenericGraph):
             return None
 
         gd = Graph.Full_Bipartite(iNeg, iPos)
-                        # set vertices labels in bipartite graph as in G1
+                    # set vertices labels in bipartite graph as in G1
         i, k, l = 0, 0, 0
         for v in deg_list:
             if v < 0:
@@ -329,17 +335,20 @@ class G1(GenericGraph):
             trg_g2 = g2.graph.vs.find(label=target_label)
             weight_mtrx = g2.graph.shortest_paths_dijkstra(src_g2.index, trg_g2.index, "weight", OUT)
             edg["weight"] = weight_mtrx[0][0]
-            print("Path weight in bipartite graph: {}, src: {}, trg: {}".format(weight_mtrx[0][0], source_label, target_label) )
+            #print("Path weight in bipartite graph: {}, src: {}, trg: {}".format(weight_mtrx[0][0], source_label, target_label) )
             
         gd.es["directed"] = False
         return GenericGraph(gd), iNeg
     
     #------------------------------------------------------------------------
-    def add_penaltyTm_edges(self, penaltyT: float):
+    def add_penaltyTm_edges(self, penaltyT: int, useConstW = False, constWeight = 80):
         """
         Create grapgh with penalty edges from given G1 graph
         as mentioned in 3b step in documentation.
-        :param: PenaltyT - specifies how many times multiply weight of corresponding legal edgde
+        Penalty weight is set as corresponding legal egde weight multiplied by param penaltyT.
+        :param: PenaltyT - specifies how many times multiply weight of corresponding legal edgde.
+        :param useConstW = False - set to True to use const penalty weight specyfied by following param.
+        :param constWeight = 80 - set value of const peanalty edges weight. Used mainly for test purpose
         :return: New graph with penalty edges
         """
         g2 = self.graph.copy()
@@ -358,20 +367,23 @@ class G1(GenericGraph):
                 new_e["transformed"] = True
             else:
                 new_e = g2.add_edge(e.target, e.source)
-                #new_e["weight"] = ( int(e["weight"]) * penaltyT)
-                #---------------------------------------TEST - to remove in final version
-                new_e["weight"] = 80
-                #-----------------------------------END TEST - to match test in docu
+                if not useConstW:
+                    new_e["weight"] = ( int(e["weight"]) * penaltyT)
+                else: 
+                    new_e["weight"] = constWeight
                 new_e["IsPenalty"] = True
+                new_e["transformed"] = False
 
         g2.es["directed"] = True
         return GenericGraph(g2)
 
     #------------------------------------------------------------------------
-    def add_penaltyAvg_edges(self, penaltyT: float):
+    def add_penaltyAvg_edges(self, penaltyT: int):
         """
         Create grapgh with penalty edges from given G1 graph
         as mentioned in 3b step in documentation.
+        Calculate average weigt of edges in G1.
+        Penalty weight is set as average weight multiplied by param penaltyT.
         :param: PenaltyT - specifies how many times multiply average weight of edges
         :return: New graph with penalty edges
         """
@@ -383,7 +395,7 @@ class G1(GenericGraph):
         for e in g2.es:
             sum_w += e["weight"]
             
-        avg_w = sum_w / len(g2.es)
+        avg_w = int( (sum_w / len(g2.es)) + 0.5)
 
         for e in self.graph.es:
             source_vertex_id = e.source
@@ -433,6 +445,7 @@ class G1(GenericGraph):
         for e in gd.graph.es:
             e["weight"] = 10000 - e["weight"]
 
+        penalties = 0
         for e in matching.edges():
                     # in bipartite graph edges source are vertices with positive degree
                     # so we need to swap target with source
@@ -444,7 +457,7 @@ class G1(GenericGraph):
             vertex_sequnce_for_path = g2.graph.get_shortest_paths(src_g2.index, trg_g2.index, "weight")
             #print(vertex_sequnce_for_path)
 
-            i, ipre, penalties = 0, -1, 0
+            i, ipre  = 0, -1
             for iVi in vertex_sequnce_for_path[0]:
                 if i > 0:
                    ed1 = self.graph.add_edge(ipre, iVi) #add(duplicate) edge in g1
@@ -525,12 +538,14 @@ class G1(GenericGraph):
         circuit.reverse()
         return total_weight, [self.graph.vs[vs]["label"] for vs in circuit], circuit
 
-    def get_postman_tour(self, penalty, starting_vertex_label):
+    #------------------------------------------------------------------------
+    def get_postman_tour(self, useAvgPenalty, penalty, starting_vertex_label, useConstW = False, constW = 80):
         """
         The top layer of the algorithm for chinese postman problem.
+        :param useAvgPenalty - if true use add_penaltyAvg_edges otherwise use add_penaltyTm_edges method.
         :param penalty: penalty for choosing incorrect direction
         :param starting_vertex_label: label for starting vertex.
-        :return: (cost, tour, tour_by_id) - cost of the tour & tour itself (both by labels and ids)
+        :return: (cost, tour, iPenCnt) - cost of the tour & tour itself & number of penalty egdes in tour
         """
         if not self.is_connected():
             raise RuntimeError("G1 is not connected.")
@@ -538,15 +553,26 @@ class G1(GenericGraph):
         deg_list = []  # for storing vertices degrees(our degree = DegIn - degOut)
         if not self.have_euler_tour(deg_list):
             self.graph.vs["deg"] = deg_list
-            g2 = self.add_penaltyTm_edges(penalty)      # create G2 as mentioned in documentation
+                    # choosing rule for adding penalty edges
+            if not useAvgPenalty:
+                if not useConstW:
+                    g2 = self.add_penaltyTm_edges(penalty)      # create G2 as mentioned in documentation
+                else:
+                    g2 = self.add_penaltyTm_edges(penalty, useConstW, constW) # create G2 as in test case
+            else:
+                g2 = self.add_penaltyAvg_edges(penalty)
+            print("Graph g2 created")
             gd, iNeg = self.create_complete_bipart(deg_list, g2)
+            print("bipartite graph generated")
             if gd is not None:
-                self.GraphBalancing(gd, g2)
+                iPenCnt = self.GraphBalancing(gd, g2)
+                print("Finding Euler tour...")
                 cost, tour, tour_by_id = self.FindEuler(starting_vertex_label)
             else:
                 raise RuntimeError("Uncovered logic path")
         else:
+            print("Finding Euler...")
             cost, tour, tour_by_id = self.FindEuler(starting_vertex_label)
 
-        return cost, tour, tour_by_id
+        return cost, tour, tour_by_id, iPenCnt
 
